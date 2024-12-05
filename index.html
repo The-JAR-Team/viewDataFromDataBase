@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Session Data Viewer</title>
+    <link rel="icon" href="https://i.imgur.com/ncn1Hnp.png" type="image/x-icon">
+    <meta name="description" content="I SEE YOU DATA (wink)"/>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #222;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 20px auto;
+        }
+
+        .session-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .session-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #333;
+        }
+
+        .session-header .session-meta {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .session-details {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .details-grid div {
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background: #eee;
+        }
+
+        table thead th {
+            padding: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        table tbody td {
+            padding: 8px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 50px;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 50px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sessions Data</h1>
+    </header>
+    <div class="container">
+        <div class="loading" id="loading">Loading sessions...</div>
+        <div class="error" id="error" style="display:none;"></div>
+        <div id="sessions-container"></div>
+    </div>
+    <footer>
+        &copy; 2024 Your Company
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const url = 'https://tin-luck-measure.glitch.me/api/sessions';
+            const sessionsContainer = document.getElementById('sessions-container');
+            const loadingElement = document.getElementById('loading');
+            const errorElement = document.getElementById('error');
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadingElement.style.display = 'none';
+                    displaySessions(data);
+                })
+                .catch(err => {
+                    loadingElement.style.display = 'none';
+                    errorElement.style.display = 'block';
+                    errorElement.textContent = 'Failed to fetch data: ' + err.message;
+                });
+
+            function displaySessions(sessions) {
+                if (!Array.isArray(sessions) || sessions.length === 0) {
+                    sessionsContainer.innerHTML = '<p>No sessions found.</p>';
+                    return;
+                }
+
+                sessions.forEach(session => {
+                    const card = document.createElement('div');
+                    card.className = 'session-card';
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'session-header';
+                    const title = document.createElement('h2');
+                    title.textContent = 'User: ' + session.userProfile;
+                    const meta = document.createElement('div');
+                    meta.className = 'session-meta';
+                    meta.textContent = 'Created: ' + new Date(session.createdAt).toLocaleString();
+
+                    headerDiv.appendChild(title);
+                    headerDiv.appendChild(meta);
+
+                    const details = document.createElement('div');
+                    details.className = 'session-details';
+
+                    const grid = document.createElement('div');
+                    grid.className = 'details-grid';
+
+                    const lectureDiv = document.createElement('div');
+                    lectureDiv.innerHTML = '<strong>Lecture:</strong><br>' + session.lectureTitle;
+                    const durationDiv = document.createElement('div');
+                    durationDiv.innerHTML = '<strong>Duration:</strong><br>' + session.durationMinutes + ' mins';
+                    const focusDiv = document.createElement('div');
+                    focusDiv.innerHTML = '<strong>Focus %:</strong><br>' + session.focusPercentage + '%';
+
+                    grid.appendChild(lectureDiv);
+                    grid.appendChild(durationDiv);
+                    grid.appendChild(focusDiv);
+
+                    details.appendChild(grid);
+
+                    const startTime = document.createElement('p');
+                    startTime.innerHTML = '<strong>Session Start:</strong> ' + session.startTime;
+
+                    const totalUnfocused = document.createElement('p');
+                    totalUnfocused.innerHTML = '<strong>Total Unfocused Time:</strong> ' + (session.totalUnfocusedTimeMs / 1000) + ' seconds';
+
+                    details.appendChild(startTime);
+                    details.appendChild(totalUnfocused);
+
+                    const intervalsHeading = document.createElement('h3');
+                    intervalsHeading.textContent = 'Focus Intervals';
+                    details.appendChild(intervalsHeading);
+
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    thead.innerHTML = `
+                        <tr>
+                            <th>Interval</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>% Not Focused</th>
+                        </tr>
+                    `;
+                    table.appendChild(thead);
+
+                    const tbody = document.createElement('tbody');
+                    session.focusIntervals.forEach(interval => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${interval.interval}</td>
+                            <td>${interval.start_time}</td>
+                            <td>${interval.end_time}</td>
+                            <td>${interval.percent_not_focused}%</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    table.appendChild(tbody);
+
+                    details.appendChild(table);
+
+                    card.appendChild(headerDiv);
+                    card.appendChild(details);
+                    sessionsContainer.appendChild(card);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
