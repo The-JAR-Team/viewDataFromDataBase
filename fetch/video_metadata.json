@@ -1,26 +1,93 @@
 [
   {
     "video_id": "2tM1LFFxeKg",
-    "group": "Computer Vision",
+	"video_name": "What makes muscles grow?",
+    "group": "Health",
     "length": "00:12:34",
     "uploadby": "Prof. Jane AI"
   },
   {
     "video_id": "7SWvDHvWXok",
-    "group": "Deep Learning Basics",
+	"video_name": "Questions No One Knows the Answers to",
+    "group": "Unique",
     "length": "00:08:45",
     "uploadby": "Dr. Neural Net"
   },
   {
     "video_id": "Ab9OZsDECZw",
-    "group": "Focus Flow Testing",
+	"video_name": "How blood pressure works",	
+    "group": "Health",
     "length": "00:05:20",
     "uploadby": "Team FocusFlow"
   },
   {
     "video_id": "B_tTymvDWXk",
-    "group": "Gaze Tracking Demo",
+	"video_name": "How does anesthesia work? ",	
+    "group": "Biology",
     "length": "00:10:10",
     "uploadby": "Vision Lab"
+  },
+    {
+    "video_id": "2W85Dwxx218",
+    "video_name": "Why do we dream?",
+    "group": "Psychology",
+    "length": "00:10:12",
+    "uploadby": "Dr. Somnus"
+  },
+  {
+    "video_id": "cjbgZwgdY7Q",
+    "video_name": "Why do women have periods?",
+    "group": "Biology",
+    "length": "00:09:30",
+    "uploadby": "Dr. Hormone"
+  },
+  {
+    "video_id": "E4SPzxn2vQQ",
+    "video_name": "How to Import LiDAR Data into Google Earth",
+    "group": "Technology",
+    "length": "00:11:45",
+    "uploadby": "Tech Guru Alex"
+  },
+  {
+    "video_id": "F_ssj7-8rYg",
+    "video_name": "The surprising effects of pregnancy",
+    "group": "Biology",
+    "length": "00:10:05",
+    "uploadby": "Dr. Materna"
+  },
+  {
+    "video_id": "jFICRFKtAc4",
+    "video_name": "How did Hitler rise to power?",
+    "group": "History",
+    "length": "00:14:20",
+    "uploadby": "Historian Max"
+  },
+  {
+    "video_id": "R9OCA6UFE-0",
+    "video_name": "The philosophy of Stoicism",
+    "group": "Philosophy",
+    "length": "00:09:55",
+    "uploadby": "Prof. Zen"
+  },
+  {
+    "video_id": "sI8NsYIyQ2A",
+    "video_name": "Why do cats act so weird?",
+    "group": "Animals",
+    "length": "00:08:30",
+    "uploadby": "Cat Lover Mia"
+  },
+  {
+    "video_id": "wUEl8KrMz14",
+    "video_name": "Why sitting is bad for you ?",
+    "group": "Health",
+    "length": "00:07:45",
+    "uploadby": "Dr. Fit"
+  },
+  {
+    "video_id": "XsX3ATc3FbA",
+    "video_name": "Childlike Love: The Power of Affection",
+    "group": "Relationships",
+    "length": "00:04:50",
+    "uploadby": "Love Guru Eli"
   }
 ]
