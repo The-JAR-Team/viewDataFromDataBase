@@ -48,7 +48,6 @@ POST /login
 ```json
 {
   "status": "success/failed"
-  "auth_token": "exampleToken", /// to be changed to a cookie
   "reason": "explanation"
 }
 ```
@@ -78,7 +77,6 @@ POST /register
 ```json
 {
   "status": "success/failed"
-  "auth_token": "exampleToken", /// to be changed to a cookie
   "reason": "explanation"
 }
 ```
